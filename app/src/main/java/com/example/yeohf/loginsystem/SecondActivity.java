@@ -1,10 +1,16 @@
 package com.example.yeohf.loginsystem;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.example.yeohf.loginsystem.Adapters.RentalListAdapter;
+import com.example.yeohf.loginsystem.Entity.Rental;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -50,7 +56,7 @@ public class SecondActivity extends AppCompatActivity {
                     Rental rental = rentalsnapshot.getValue(Rental.class);
                     personal_rentallist.add(rental);
                 }
-                RentalList adapter = new RentalList(SecondActivity.this, personal_rentallist);
+                RentalListAdapter adapter = new RentalListAdapter(SecondActivity.this, personal_rentallist);
                 listViewPersonalRentals.setAdapter(adapter);
             }
 
@@ -59,7 +65,22 @@ public class SecondActivity extends AppCompatActivity {
 
             }
         });
-
+        listViewOverallRentals.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(SecondActivity.this, RentalDetailsActivity.class);
+                Bundle extras = new Bundle();
+                extras.putString("title", overall_rentallist.get(position).getTitle());
+                // extras.putString("roomtype", overall_rentallist.get(position).getDesc());
+                extras.putString("price", overall_rentallist.get(position).getPrice());
+                extras.putString("address", overall_rentallist.get(position).getAddress());
+                extras.putString("desc", overall_rentallist.get(position).getDesc());
+                //extras.putInt("imgid", imgid[position]);
+                intent.putExtras(extras);
+                SecondActivity.this.startActivity(intent);
+                Toast.makeText(getApplicationContext(), "Cool!", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         database_allref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -70,10 +91,8 @@ public class SecondActivity extends AppCompatActivity {
                         Rental rental2= rentalzsnapshot.getValue(Rental.class);
                         overall_rentallist.add(rental2);
                     }
-
-
                 }
-                RentalList adapter2 = new RentalList(SecondActivity.this, overall_rentallist);
+                RentalListAdapter adapter2 = new RentalListAdapter(SecondActivity.this, overall_rentallist);
                 listViewOverallRentals.setAdapter(adapter2);
             }
 

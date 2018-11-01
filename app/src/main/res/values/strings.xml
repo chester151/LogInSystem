@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">LogInSystem</string>
+    <string-array name="choices">
+        <item>Select type of Amenity</item>
+        <item>Shopping Malls</item>
+        <item>Banks</item>
+        <item>Clinics</item>
+        <item>Restaurants</item>
+        <item>Schools</item>
+    </string-array>
 </resources>

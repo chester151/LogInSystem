@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.yeohf.loginsystem">
-
     <application
+
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -22,8 +22,16 @@
         <activity android:name=".ScreenActivity" />
         <activity android:name=".PasswordActivity" />
         <activity android:name=".ProfileActivity" />
-        <activity android:name=".UpdateProfile" />
-        <activity android:name=".UpdateMailPass"></activity>
+        <activity android:name=".UpdateProfileActivity" />
+        <activity android:name=".RentalDetailsActivity" />
+        <activity android:name=".UpdateMailPassActivity"></activity>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDPcC23A0f0buxw8Ua3IjxIyBZYGd1Oz0I" />
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
     </application>
 
 </manifest>

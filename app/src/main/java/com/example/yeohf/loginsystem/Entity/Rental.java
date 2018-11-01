@@ -1,4 +1,4 @@
-package com.example.yeohf.loginsystem;
+package com.example.yeohf.loginsystem.Entity;
 
 public class Rental {
     public String rentalid;

@@ -1,25 +1,20 @@
 package com.example.yeohf.loginsystem;
 
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
+import com.example.yeohf.loginsystem.Entity.UserProfile;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-public class UpdateProfile extends AppCompatActivity {
+public class UpdateProfileActivity extends AppCompatActivity {
 
     private EditText newuser,newcontact;
     private Button save;
-
     private FirebaseDatabase firebaseDatabase;
     private FirebaseAuth firebaseAuth;
 
@@ -41,7 +36,7 @@ public class UpdateProfile extends AppCompatActivity {
 //
 //            @Override
 //            public void onCancelled(@NonNull DatabaseError databaseError) {
-//                Toast.makeText(UpdateProfile.this, databaseError.getCode(),Toast.LENGTH_SHORT).show();
+//                Toast.makeText(UpdateProfileActivity.this, databaseError.getCode(),Toast.LENGTH_SHORT).show();
 //
 //            }
 //        });
@@ -65,7 +60,6 @@ public class UpdateProfile extends AppCompatActivity {
         newuser= (EditText)findViewById(R.id.etNewname);
         newcontact= (EditText)findViewById(R.id.etNewcontact);
         save=(Button)findViewById(R.id.btnSavenew);
-
         firebaseAuth=FirebaseAuth.getInstance();
         firebaseDatabase=FirebaseDatabase.getInstance();
     }

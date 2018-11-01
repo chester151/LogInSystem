@@ -1,4 +1,4 @@
-package com.example.yeohf.loginsystem;
+package com.example.yeohf.loginsystem.Adapters;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
@@ -9,19 +9,20 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.example.yeohf.loginsystem.Entity.Rental;
+import com.example.yeohf.loginsystem.R;
+
 import java.util.List;
 
-public class RentalList extends ArrayAdapter<Rental> {
+public class RentalListAdapter extends ArrayAdapter<Rental> {
 
     private Activity context;
     private List<Rental> rentalList;
 
-    public RentalList(Activity context, List<Rental> rentalList){
+    public RentalListAdapter(Activity context, List<Rental> rentalList) {
         super(context,R.layout.rental_layout, rentalList);
         this.context=context;
         this.rentalList= rentalList;
-
-
     }
 
     @NonNull
@@ -41,7 +42,6 @@ public class RentalList extends ArrayAdapter<Rental> {
         rentaldesc.setText(rental.getDesc());
         rentalprice.setText(rental.getPrice());
         rentaladd.setText(rental.getAddress());
-
 
         return listViewItem;
     }

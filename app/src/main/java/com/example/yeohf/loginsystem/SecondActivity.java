@@ -3,7 +3,9 @@ package com.example.yeohf.loginsystem;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -21,7 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SecondActivity extends AppCompatActivity {
+public class SecondActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     ListView listViewPersonalRentals;
     ListView listViewOverallRentals;
     List<Rental> personal_rentallist;
@@ -42,6 +44,9 @@ public class SecondActivity extends AppCompatActivity {
         overall_rentallist= new ArrayList<>();
         database_ownref = FirebaseDatabase.getInstance().getReference("Rentals").child(firebaseauth.getUid());
         database_allref = FirebaseDatabase.getInstance().getReference("Rentals");
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.navigation_view);
+        bottomNavigationView.setOnNavigationItemSelectedListener(this);
     }
 
     @Override
@@ -78,7 +83,7 @@ public class SecondActivity extends AppCompatActivity {
                 //extras.putInt("imgid", imgid[position]);
                 intent.putExtras(extras);
                 SecondActivity.this.startActivity(intent);
-                Toast.makeText(getApplicationContext(), "Cool!", Toast.LENGTH_SHORT).show();
+
             }
         });
 
@@ -92,6 +97,7 @@ public class SecondActivity extends AppCompatActivity {
                         overall_rentallist.add(rental2);
                     }
                 }
+                Toast.makeText(getApplicationContext(), "Cool!", Toast.LENGTH_SHORT).show();
                 RentalListAdapter adapter2 = new RentalListAdapter(SecondActivity.this, overall_rentallist);
                 listViewOverallRentals.setAdapter(adapter2);
             }
@@ -101,5 +107,24 @@ public class SecondActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.flatinfoicon:
+                Toast.makeText(getApplicationContext(), "You are already in this page!", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.homeicon:
+                Intent intent = new Intent(SecondActivity.this, ScreenActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.chaticon:
+                Toast.makeText(getApplicationContext(), "To be done!", Toast.LENGTH_SHORT).show();
+                break;
+            default:
+                return false;
+        }
+        return true;
     }
 }

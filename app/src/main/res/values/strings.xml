@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">LogInSystem</string>
+    <string name="app_name">Property Manager</string>
     <string-array name="choices">
         <item>Select type of Amenity</item>
         <item>Shopping Malls</item>
@@ -8,4 +8,8 @@
         <item>Restaurants</item>
         <item>Schools</item>
     </string-array>
+    <string name="myflat">My Flat</string>
+    <string name="home">Home</string>
+    <string name="mychat">My Chats</string>
+
 </resources>

@@ -38,7 +38,7 @@ public class ScreenActivity extends AppCompatActivity implements BottomNavigatio
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_screen);
 
-        etadd = (EditText)findViewById(R.id.etAdd);
+        etadd = findViewById(R.id.etAdd);
         etprice= (EditText)findViewById(R.id.etPrice);
         etdesc= (EditText)findViewById(R.id.etDesc);
         ettitle= (EditText)findViewById(R.id.etTitle);

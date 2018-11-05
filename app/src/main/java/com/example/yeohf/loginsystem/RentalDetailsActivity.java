@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -39,6 +40,7 @@ public class RentalDetailsActivity extends AppCompatActivity implements OnMapRea
     TextView lblTitle, lblroomtype, lblprice, lblcapacity, lbldescription;
     ImageView imgview;
     Spinner spinner;
+    Button joinchat;
     int imgid;
 
     @Override
@@ -60,6 +62,7 @@ public class RentalDetailsActivity extends AppCompatActivity implements OnMapRea
         lbldescription = findViewById(R.id.txtDescription);
         lblcapacity = findViewById(R.id.txtCapacity);
         imgview = findViewById(R.id.imgViewDetail);
+        joinchat = findViewById(R.id.btnChat);
 
         lblTitle.setText(title);
         lblroomtype.setText(description);
@@ -73,6 +76,14 @@ public class RentalDetailsActivity extends AppCompatActivity implements OnMapRea
                 R.array.choices, android.R.layout.simple_spinner_item);
 // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        joinchat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(RentalDetailsActivity.this, ChatActivity.class));
+            }
+        });
+
 // Apply the adapter to the spinners
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

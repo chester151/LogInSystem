@@ -13,7 +13,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.yeohf.loginsystem.Entity.Rental;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -84,15 +83,14 @@ public class ScreenActivity extends AppCompatActivity implements BottomNavigatio
         //        myRef.child(firebaseAuth.getUid()).setValue(userProfile);
 
         DatabaseReference myRef= firebaseDatabase.getReference("Rentals").child(firebaseAuth.getUid());
-        add=etadd.getText().toString();
-        price=etprice.getText().toString();
-        desc=etdesc.getText().toString();
-        title=ettitle.getText().toString();
-
+        add = etadd.getText().toString();
+        price = etprice.getText().toString();
+        desc = etdesc.getText().toString();
+        title = ettitle.getText().toString();
 
         String id= myRef.push().getKey();
-        Rental newrental= new Rental(id,add,price,desc,title);
-        myRef.child(id).setValue(newrental);
+        //Rental newrental= new Rental(id,add,price,desc,title);
+        //myRef.child(id).setValue(newrental);
 
     }
 
@@ -131,7 +129,7 @@ public class ScreenActivity extends AppCompatActivity implements BottomNavigatio
             case R.id.homeicon:
                 Toast.makeText(getApplicationContext(), "You are already in this page!", Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.chaticon:
+            case R.id.sellicon:
                 Toast.makeText(getApplicationContext(), "To be done!", Toast.LENGTH_SHORT).show();
                 break;
             default:

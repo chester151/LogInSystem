@@ -24,8 +24,10 @@
         <activity android:name=".ProfileActivity" />
         <activity android:name=".UpdateProfileActivity" />
         <activity android:name=".RentalDetailsActivity" />
-        <activity android:name=".UpdateMailPassActivity"></activity>
-        <activity android:name=".ChatActivity"></activity>
+        <activity android:name=".UpdateMailPassActivity" />
+        <activity android:name=".ChatActivity" />
+        <activity android:name=".CreateListingActivity" />
+
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

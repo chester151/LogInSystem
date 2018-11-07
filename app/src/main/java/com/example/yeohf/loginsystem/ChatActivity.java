@@ -77,7 +77,7 @@ public class ChatActivity extends AppCompatActivity implements BottomNavigationV
                 Intent intent = new Intent(ChatActivity.this, ScreenActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.chaticon:
+            case R.id.sellicon:
                 Toast.makeText(getApplicationContext(), "To be done!", Toast.LENGTH_SHORT).show();
                 break;
             default:

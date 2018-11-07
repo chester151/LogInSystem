@@ -10,5 +10,6 @@
     </string-array>
     <string name="myflat">My Flat</string>
     <string name="home">Home</string>
-    <string name="mychat">My Chats</string>
+    <string name="sell">Sell</string>
+    <string name="profile">My Profile</string>
 </resources>

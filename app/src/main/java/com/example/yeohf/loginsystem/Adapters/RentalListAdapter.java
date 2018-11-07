@@ -45,4 +45,6 @@ public class RentalListAdapter extends ArrayAdapter<Rental> {
 
         return listViewItem;
     }
+
+
 }

@@ -38,10 +38,10 @@ public class SecondActivity extends AppCompatActivity implements BottomNavigatio
         firebaseauth = FirebaseAuth.getInstance();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
-        listViewPersonalRentals = (ListView) findViewById(R.id.lvownrentals);
-        listViewOverallRentals = (ListView) findViewById(R.id.lvallrentals);
+        listViewPersonalRentals = findViewById(R.id.lvownrentals);
+        listViewOverallRentals = findViewById(R.id.lvallrentals);
         personal_rentallist = new ArrayList<>();
-        overall_rentallist= new ArrayList<>();
+        overall_rentallist = new ArrayList<>();
         database_ownref = FirebaseDatabase.getInstance().getReference("Rentals").child(firebaseauth.getUid());
         database_allref = FirebaseDatabase.getInstance().getReference("Rentals");
 
@@ -91,9 +91,9 @@ public class SecondActivity extends AppCompatActivity implements BottomNavigatio
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 overall_rentallist.clear();
-                for (DataSnapshot uniquekeySnapshot: dataSnapshot.getChildren()) {
-                    for (DataSnapshot rentalzsnapshot: uniquekeySnapshot.getChildren()){
-                        Rental rental2= rentalzsnapshot.getValue(Rental.class);
+                for (DataSnapshot uniquekeySnapshot : dataSnapshot.getChildren()) {
+                    for (DataSnapshot rentalzsnapshot : uniquekeySnapshot.getChildren()) {
+                        Rental rental2 = rentalzsnapshot.getValue(Rental.class);
                         overall_rentallist.add(rental2);
                     }
                 }
@@ -119,7 +119,7 @@ public class SecondActivity extends AppCompatActivity implements BottomNavigatio
                 Intent intent = new Intent(SecondActivity.this, ScreenActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.chaticon:
+            case R.id.sellicon:
                 Toast.makeText(getApplicationContext(), "To be done!", Toast.LENGTH_SHORT).show();
                 break;
             default:

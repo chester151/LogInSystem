@@ -96,12 +96,11 @@ public class StartActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     progressDialog.dismiss();
                     Toast.makeText(StartActivity.this, "Login Success! ", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(StartActivity.this, ScreenActivity.class));
+                    startActivity(new Intent(StartActivity.this, MainActivity.class));
                 } else {
                     progressDialog.dismiss();
                     Toast.makeText(StartActivity.this, "Login Failed ", Toast.LENGTH_SHORT).show();
                     counter--;
-
                     info.setText("Number of tries left:" + counter);
                     if (counter == 0) {
                         login.setEnabled(false);

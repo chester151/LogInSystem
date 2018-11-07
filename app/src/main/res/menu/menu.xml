@@ -8,7 +8,11 @@
         app:showAsAction="always"
         android:title="Logout">
     </item>
-
+    <item
+        android:id="@+id/settingMenu"
+        android:orderInCategory="200"
+        app:showAsAction="never"
+        android:title="Settings">
     <item
         android:id="@+id/profileMenu"
         android:orderInCategory="300"
@@ -16,11 +20,7 @@
         android:title="Profile">
     </item>
 
-    <item
-        android:id="@+id/settingMenu"
-        android:orderInCategory="200"
-        app:showAsAction="never"
-        android:title="Settings">
+
     </item>
 
 

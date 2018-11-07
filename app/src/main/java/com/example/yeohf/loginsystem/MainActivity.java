@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -90,6 +91,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.flatinfoicon:
@@ -108,4 +116,24 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         return true;
     }
 
+    public void logout() {
+        mAuth.signOut();
+        finish();
+        startActivity(new Intent(MainActivity.this, StartActivity.class));
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.logoutMenu:
+                logout();
+                break;
+            case R.id.profileMenu:
+                startActivity(new Intent(this, ProfileActivity.class));
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 }

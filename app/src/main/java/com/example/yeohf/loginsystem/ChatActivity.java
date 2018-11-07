@@ -30,11 +30,17 @@ public class ChatActivity extends AppCompatActivity implements BottomNavigationV
     ListView listofmessage;
     List<Chat> messageList;
     FirebaseAuth firebaseauth;
+    String chatid, rentid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        chatid = extras.getString("chatid");
+        rentid = extras.getString("rentid");
+
         messageList = new ArrayList<>();
         firebaseauth = FirebaseAuth.getInstance();
         send = findViewById(R.id.send);
@@ -42,7 +48,7 @@ public class ChatActivity extends AppCompatActivity implements BottomNavigationV
             @Override
             public void onClick(View v) {
                 EditText input = findViewById(R.id.textinputchat);
-                FirebaseDatabase.getInstance().getReference("Chats").push().setValue(new Chat("abc123", "123456", input.getText().toString(), FirebaseAuth.getInstance().getCurrentUser().getEmail()));
+                FirebaseDatabase.getInstance().getReference("Chats").push().setValue(new Chat(chatid, rentid, input.getText().toString(), FirebaseAuth.getInstance().getCurrentUser().getEmail()));
                 input.setText("");
             }
         });
@@ -54,8 +60,10 @@ public class ChatActivity extends AppCompatActivity implements BottomNavigationV
                 messageList.clear();
                 Iterable<DataSnapshot> child = dataSnapshot.getChildren();
                 for (DataSnapshot uniquesnap : child) {
-                    Chat chats = uniquesnap.getValue(Chat.class);
-                    messageList.add(chats);
+                    if (uniquesnap.child("rentId").getValue().equals(rentid)) {
+                        Chat chats = uniquesnap.getValue(Chat.class);
+                        messageList.add(chats);
+                    }
                 }
                 ChatListAdapter adapter = new ChatListAdapter(ChatActivity.this, messageList);
                 listofmessage.setAdapter(adapter);

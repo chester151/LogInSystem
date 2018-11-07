@@ -12,11 +12,15 @@ public class Rental {
     public String zone;
     public String storey;
     public String type;
+    public String model;
+    public String listingType;
+    public String imagePath;
+    public String chatId;
 
     public Rental(){
     }
 
-    public Rental(String id, String title, String address, String zone, String type, String storey, String price, double lat, double lng) {
+    public Rental(String id, String title, String address, String model, String listingType, String zone, String type, String storey, String price, String imagePath, String chatid, double lat, double lng) {
         this.address = address;
         this.price = price;
         this.rentalid= id;
@@ -26,9 +30,29 @@ public class Rental {
         this.storey = storey;
         this.lat = lat;
         this.lng = lng;
+        this.chatId = chatid;
+        this.imagePath = imagePath;
+        this.model = model;
+        this.listingType = listingType;
+
 
     }
 
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public String getListingType() {
+        return listingType;
+    }
+
+    public void setListingType(String listingType) {
+        this.listingType = listingType;
+    }
     public String getRentalid() {
         return rentalid;
     }
@@ -49,12 +73,27 @@ public class Rental {
         return price;
     }
 
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
     public void setPrice(String price) {
         this.price = price;
     }
 
     public double getLat() {
         return lat;
+    }
+
+    public String getChatId() {
+        return chatId;
+    }
+
+    public void setChatId(String chatId) {
+        this.chatId = chatId;
     }
 
     public void setLat(double lat) {

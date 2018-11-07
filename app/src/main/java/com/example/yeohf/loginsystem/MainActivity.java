@@ -11,6 +11,8 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -27,6 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
@@ -52,21 +55,48 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         searchRental = findViewById(R.id.searchRental);
         BottomNavigationView bottomNavigationView = findViewById(R.id.navigation_view);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
+        listViewOverallRentals.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(MainActivity.this, RentalDetailsActivity.class);
+                Bundle extras = new Bundle();
+                extras.putString("title", overall_rentallist.get(position).getTitle());
+                extras.putString("price", overall_rentallist.get(position).getPrice());
+                extras.putString("address", overall_rentallist.get(position).getAddress());
+                extras.putString("model", overall_rentallist.get(position).getModel());
+                extras.putString("listingType", overall_rentallist.get(position).getListingType());
+                extras.putString("type", overall_rentallist.get(position).getType());
+                extras.putString("storey", overall_rentallist.get(position).getStorey());
+                extras.putString("picUrl", overall_rentallist.get(position).getImagePath());
+                extras.putString("rentId", overall_rentallist.get(position).getRentalid());
+                extras.putDouble("lat", overall_rentallist.get(position).getLat());
+                extras.putDouble("lng", overall_rentallist.get(position).getLng());
+                extras.putString("chatid", overall_rentallist.get(position).getChatId());
+                intent.putExtras(extras);
+                MainActivity.this.startActivity(intent);
+
+            }
+        });
         database_allref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 overall_rentallist.clear();
+                Iterable<DataSnapshot> child = dataSnapshot.getChildren();
+                for (DataSnapshot uniquesnap : child) {
+                    Rental rental = uniquesnap.getValue(Rental.class);
+                    overall_rentallist.add(rental);
+                }
+               /* overall_rentallist.clear();
                 for (DataSnapshot uniquekeySnapshot : dataSnapshot.getChildren()) {
                     for (DataSnapshot rentalzsnapshot : uniquekeySnapshot.getChildren()) {
                         Rental rental2 = rentalzsnapshot.getValue(Rental.class);
                         overall_rentallist.add(rental2);
                     }
-                }
-                Toast.makeText(getApplicationContext(), "Cool!", Toast.LENGTH_SHORT).show();
+                }*/
+                // Toast.makeText(getApplicationContext(), "Cool!", Toast.LENGTH_SHORT).show();
                 adapter = new RentalListAdapter(MainActivity.this, overall_rentallist);
                 listViewOverallRentals.setAdapter(adapter);
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
@@ -80,12 +110,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                adapter.getFilter().filter(s.toString());
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                String text = searchRental.getText().toString().toLowerCase(Locale.getDefault());
+                adapter.filter(text);
             }
         });
     }
@@ -107,7 +137,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 Toast.makeText(getApplicationContext(), "You are already in this page!", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.sellicon:
-                Intent intent = new Intent(MainActivity.this, ChatActivity.class);
+                Intent intent = new Intent(MainActivity.this, CreateListingActivity.class);
                 startActivity(intent);
                 break;
             default:

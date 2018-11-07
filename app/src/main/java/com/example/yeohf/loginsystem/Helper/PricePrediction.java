@@ -11,12 +11,12 @@ public class PricePrediction {
     public String flat_model;
     public int area;
 
-    public static void main(String[] args) {
+   /* public static void main(String[] args) {
         PricePrediction housing = new PricePrediction("BEDOK", "3 ROOM", "19 TO 21", "Improved", 80);
-        System.out.println("The estimated price is:" + housing.getPrice());
-    }
+        //System.out.println("The estimated price is:" + housing.getPrice());
+    }*/
 
-    PricePrediction(String town, String flat_type, String storey, String flat_model, int area) {
+    public PricePrediction(String town, String flat_type, String storey, String flat_model, int area) {
         this.town = town;
         this.flat_type = flat_type;
         this.storey = storey;
@@ -42,7 +42,7 @@ public class PricePrediction {
                 return 1527.904;
             case "CHOA CHU KANG":
                 return -1476.374;
-            case "CLELMENTI":
+            case "CLEMENTI":
                 return 461.77;
             case "GEYLANG":
                 return 364.668;
@@ -102,6 +102,8 @@ public class PricePrediction {
 
     public double getStoreyIndex(String storey_range) {
         switch (storey_range) {
+            case "01 TO 03":
+                return 145.077;
             case "04 TO 06":
                 return 179.069;
             case "07 TO 09":
@@ -185,6 +187,6 @@ public class PricePrediction {
     }
 
     public double getPrice() {
-        return (5509.230 + getTownIndex(town) + getTypeIndex(flat_type) + getStoreyIndex(storey) + getModelIndex(flat_model)) * area;
+        return (5509.230 + getTownIndex(town) + getTypeIndex(flat_type) + getStoreyIndex(storey) + getModelIndex(flat_model)) * 80;
     }
 }

@@ -25,23 +25,22 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.squareup.picasso.Picasso;
 
 public class RentalDetailsActivity extends AppCompatActivity implements OnMapReadyCallback, AdapterView.OnItemSelectedListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     MapView mapView;
     GoogleMap gmap;
-    double latitude = 1.365331;
-    double longitude = 103.847406;
+    double latitude, longitude;
     private int PROXIMITY_RADIUS = 500;
     private GoogleApiClient googleApiClient;
     static final String MAP_VIEW_BUNDLE_KEY = "MapViewBundleKey";
 
-    String title, address, price, capacity, description;
-    TextView lblTitle, lblroomtype, lblprice, lblcapacity, lbldescription;
+    String title, roomtype, zone, model, listingtype, storey, address, rentid, imagepath, price, chatid;
+    TextView lblTitle, lblroomtype, lblzone, lblprice, lblmodel, lbllistingtype, lblstorey;
     ImageView imgview;
     Spinner spinner;
     Button joinchat;
-    int imgid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,24 +51,35 @@ public class RentalDetailsActivity extends AppCompatActivity implements OnMapRea
         title = extras.getString("title");
         address = extras.getString("address");
         price = extras.getString("price");
-        // capacity = extras.getString("capacity");
-        description = extras.getString("desc");
-        //imgid = extras.getInt("imgid");
+        roomtype = extras.getString("type");
+        listingtype = extras.getString("listingType");
+        model = extras.getString("model");
+        storey = extras.getString("storey");
+        zone = extras.getString("zone");
+        rentid = extras.getString("rentId");
+        imagepath = extras.getString("picUrl");
+        latitude = extras.getDouble("lat");
+        longitude = extras.getDouble("lng");
+        chatid = extras.getString("chatid");
 
         lblTitle = findViewById(R.id.txtTitle);
         lblroomtype = findViewById(R.id.txtType);
+        lblmodel = findViewById(R.id.txtModel);
+        lbllistingtype = findViewById(R.id.txtListingType);
+        lblstorey = findViewById(R.id.txtstorey);
         lblprice = findViewById(R.id.txtPrice);
-        lbldescription = findViewById(R.id.txtDescription);
-        lblcapacity = findViewById(R.id.txtCapacity);
+        lblzone = findViewById(R.id.txtzone);
         imgview = findViewById(R.id.imgViewDetail);
         joinchat = findViewById(R.id.btnChat);
 
         lblTitle.setText(title);
-        lblroomtype.setText(description);
-        lblprice.setText(price);
-        // lblcapacity.setText(capacity);
-        lbldescription.setText(description);
-        // imgview.setImageResource(imgid);
+        lblroomtype.setText(roomtype);
+        lblprice.setText("$" + price);
+        lblmodel.setText(model);
+        lbllistingtype.setText(listingtype);
+        lblstorey.setText("Lv." + storey);
+        lblzone.setText(zone);
+        Picasso.with(RentalDetailsActivity.this).load(imagepath).into(imgview);
         spinner = findViewById(R.id.spinChoice);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -85,6 +95,17 @@ public class RentalDetailsActivity extends AppCompatActivity implements OnMapRea
         });
 
 // Apply the adapter to the spinners
+        joinchat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RentalDetailsActivity.this, ChatActivity.class);
+                Bundle extras = new Bundle();
+                extras.putString("rentid", rentid);
+                extras.putString("chatid", chatid);
+                intent.putExtras(extras);
+                startActivity(intent);
+            }
+        });
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -190,16 +211,16 @@ public class RentalDetailsActivity extends AppCompatActivity implements OnMapRea
     public void onMapReady(GoogleMap googleMap) {
         gmap = googleMap;
         gmap.setMinZoomPreference(16);
-        LatLng sg = new LatLng(1.365331, 103.847406);
-        gmap.addMarker(new MarkerOptions().position(sg).title("Ang Mo Kio Blk 319"));
+        LatLng sg = new LatLng(latitude, longitude);
+        gmap.addMarker(new MarkerOptions().position(sg).title(address));
         gmap.moveCamera(CameraUpdateFactory.newLatLng(sg));
         buildGoogleApiClient();
     }
 
     public void clearAndWriteMarker(GoogleMap googleMap) {
         googleMap.clear();
-        LatLng sg = new LatLng(1.365331, 103.847406);
-        googleMap.addMarker(new MarkerOptions().position(sg).title("Ang Mo Kio Blk 319"));
+        LatLng sg = new LatLng(latitude, longitude);
+        googleMap.addMarker(new MarkerOptions().position(sg).title(address));
     }
 
     private String getUrl(double latitide, double longitude, String nearbyPlace) {
